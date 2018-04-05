@@ -36,4 +36,21 @@ class ActivityTest < Minitest::Test
     assert_equal 0, @activity.participants[:Jerry]
   end
 
+  def test_cost_can_be_split_evenly_between_participants
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 20)
+    @activity.add_participant(:Jerry, 0)
+    @activity.add_participant(:Larry, 12)
+
+    assert_equal 25, @activity.split_cost
+  end
+
+  def test_cost_split_is_correct_with_uneven_split
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 20)
+    @activity.add_participant(:Jerry, 0)
+
+    assert_equal [34, 33], @activity.split_cost
+  end
+
 end
