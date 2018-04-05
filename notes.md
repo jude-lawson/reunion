@@ -4,3 +4,5 @@ What was easy?
 
 What was difficult?
 * Interpreting some of the more open-ended aspects of the spec, like 'evaluate Activity cose'. How is that evaluated? Is it added as part of the initial state of the and Activity object?
+
+* Making decisions about edge cases not covered in the spec.
