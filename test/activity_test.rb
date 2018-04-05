@@ -18,7 +18,7 @@ class ActivityTest < Minitest::Test
   end
 
   def test_activity_has_a_cost
-    assert_equal 100, @activity.costgs
+    assert_equal 100, @activity.cost
   end
 
   def test_participants_can_be_added_to_activity
@@ -33,7 +33,7 @@ class ActivityTest < Minitest::Test
     assert_instance_of Hash, @activity.participants
     assert_equal 20, @activity.participants[:Jules]
     assert_equal 20, @activity.participants[:Ida]
-    assert_equal 10, @activity.participants[:Jerry]
+    assert_equal 0, @activity.participants[:Jerry]
   end
 
 end
