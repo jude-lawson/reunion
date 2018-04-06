@@ -32,7 +32,11 @@ class Activity
       owes = split_base_cost - initial_payment
       amounts_owed[name] = owes
     end
-    amounts_owed[:leftover] = split_cost[0] - split_base_cost
+    if split_cost[0] == 0
+      amounts_owed[:leftovers] = 0
+    else
+      amounts_owed[:leftover] = split_cost[0] - split_base_cost
+    end
     amounts_owed
   end
 
