@@ -19,5 +19,10 @@ class Reunion
     @activities << Activity.new(name, cost)
   end
   
-
+  def evaluate_cost
+    costs = @activities.map do |activity|
+      activity.cost
+    end
+    costs.sum
+  end
 end
