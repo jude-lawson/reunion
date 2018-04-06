@@ -6,9 +6,9 @@ require './lib/activity'
 
 class ReunionTest < Minitest::Test
   def setup
-    hiking = Activity.new('hiking', 40)
-    skiing = Activity.new('skiing', 80)
-    @reunion = Reunion.new('Estes Park', [hiking, skiing])
+    @hiking = Activity.new('hiking', 40)
+    @skiing = Activity.new('skiing', 80)
+    @reunion = Reunion.new('Estes Park', [@hiking, @skiing])
   end
 
   def test_reunion_exists
@@ -31,6 +31,21 @@ class ReunionTest < Minitest::Test
   def test_that_total_cost_can_be_evaluated
     total = @reunion.evaluate_cost
     assert_equal 120, total
+  end
+
+  def test_total_amount_owed_can_be_calculated
+    @hiking.add_participant(:Jules, 20)
+    @hiking.add_participant(:Albert, 10)
+    @skiing.add_participant(:Jules, 10)
+    @skiing.add_participant(:Elias, 40)
+    @skiing.add_participant(:Albert, 0)
+    @skiing.add_participant(:Jaime, 12)
+
+    actual = @reunion.evaluate_payment
+
+    expected = {Jules: 10, Albert: 30, Elias: -20, Jaime: 8}
+
+    assert_equal expected, actual
   end
 
 end
