@@ -36,4 +36,41 @@ class ActivityTest < Minitest::Test
     assert_equal 0, @activity.participants[:Jerry]
   end
 
+  def test_cost_can_be_split_evenly_between_participants
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 20)
+    @activity.add_participant(:Jerry, 0)
+    @activity.add_participant(:Larry, 12)
+
+    assert_equal [0, 25], @activity.split_cost
+  end
+
+  def test_cost_split_is_correct_with_uneven_split
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 20)
+    @activity.add_participant(:Jerry, 0)
+
+    assert_equal [34, 33], @activity.split_cost
+  end
+
+  def test_evaluating_amount_owed_when_payment_is_needed
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 20)
+    @activity.add_participant(:Jerry, 0)
+    expected = {Jules: 13, Ida: 13, Jerry: 33, leftover: 1}
+    amount_owed = @activity.evaluate_amount_owed(@activity.participants)
+
+    assert_equal expected, amount_owed
+  end
+
+  def test_evaluating_amount_owed_when_credit_is_needed
+    @activity.add_participant(:Jules, 20)
+    @activity.add_participant(:Ida, 40)
+    @activity.add_participant(:Jerry, 0)
+    expected = {Jules: 13, Ida: -7, Jerry: 33, leftover: 1}
+    amount_owed = @activity.evaluate_amount_owed(@activity.participants)
+
+    assert_equal expected, amount_owed
+  end
+
 end
