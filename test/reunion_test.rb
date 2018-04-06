@@ -28,4 +28,9 @@ class ReunionTest < Minitest::Test
     assert_equal ['hiking', 'skiing', 'camping'], @reunion.activities
   end
 
+  def test_that_total_cost_can_be_evaluated
+    total = @reunion.evaluate_cost
+    assert_equal 120, total
+  end
+
 end
