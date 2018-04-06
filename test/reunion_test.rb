@@ -6,7 +6,9 @@ require './lib/activity'
 
 class ReunionTest < Minitest::Test
   def setup
-    @reunion = Reunion.new('Estes Park', ['hiking', 'skiing'])
+    hiking = Activity.new('hiking', 40)
+    skiing = Activity.new('skiing', 80)
+    @reunion = Reunion.new('Estes Park', [hiking, skiing])
   end
 
   def test_reunion_exists
@@ -22,7 +24,7 @@ class ReunionTest < Minitest::Test
   end
 
   def test_activites_can_be_added_to_reunion
-    @reunion.add_activity('camping')
+    @reunion.add_activity('camping', 90)
     assert_equal ['hiking', 'skiing', 'camping'], @reunion.activities
   end
 
